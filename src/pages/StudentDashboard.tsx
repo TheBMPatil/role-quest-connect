@@ -91,9 +91,14 @@ const StudentDashboard = () => {
       <Navbar />
       
       <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-secondary mb-2">My Dashboard</h1>
-          <p className="text-muted-foreground">Track your applications and discover new opportunities</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-secondary mb-2">My Dashboard</h1>
+            <p className="text-muted-foreground">Track your applications and discover new opportunities</p>
+          </div>
+          <Button variant="outline" asChild>
+            <Link to="/applications">View All Applications</Link>
+          </Button>
         </div>
 
         {/* Profile Completion Card */}

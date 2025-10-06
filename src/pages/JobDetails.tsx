@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { MapPin, Briefcase, DollarSign, Calendar, Building2, Users, CheckCircle2, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { authStore } from "@/stores/authStore";
 
 const mockJobDetails = {
   id: 1,
@@ -51,9 +52,28 @@ const mockJobDetails = {
 
 export default function JobDetails() {
   const { id } = useParams();
+  const auth = authStore.getAuth();
 
   const handleApply = () => {
+    if (!auth.isAuthenticated) {
+      toast.error("Please login to apply for jobs");
+      window.location.href = '/login';
+      return;
+    }
+    if (auth.user?.role === 'recruiter' || auth.user?.role === 'admin') {
+      toast.error("Recruiters and admins cannot apply to jobs");
+      return;
+    }
     toast.success("Application submitted successfully!");
+  };
+
+  const handleSave = () => {
+    if (!auth.isAuthenticated) {
+      toast.error("Please login to save jobs");
+      window.location.href = '/login';
+      return;
+    }
+    toast.success("Job saved successfully!");
   };
 
   return (
@@ -169,12 +189,20 @@ export default function JobDetails() {
                   <CardTitle>Apply for this position</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button className="w-full" size="lg" onClick={handleApply}>
-                    Apply Now
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    Save for Later
-                  </Button>
+                  {auth.user?.role === 'student' || !auth.isAuthenticated ? (
+                    <>
+                      <Button className="w-full" size="lg" onClick={handleApply}>
+                        Apply Now
+                      </Button>
+                      <Button variant="outline" className="w-full" onClick={handleSave}>
+                        Save for Later
+                      </Button>
+                    </>
+                  ) : (
+                    <div className="text-center py-4 text-sm text-muted-foreground">
+                      Only students can apply to jobs
+                    </div>
+                  )}
                   <div className="pt-4 space-y-2 text-sm text-muted-foreground">
                     <p className="flex items-center gap-2">
                       <Calendar className="h-4 w-4" />

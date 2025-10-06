@@ -8,10 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="rounded-lg bg-primary p-2">
-                <Briefcase className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="text-lg font-bold text-foreground">CareerQuest</span>
+              <img src="/cq_logo.png" alt="CareerQuest" className="h-8" />
             </div>
             <p className="text-sm text-muted-foreground">
               Connecting talented individuals with their dream careers.
@@ -27,8 +24,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/companies" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Companies
+                </Link>
+              </li>
+              <li>
                 <Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  FAQ
                 </Link>
               </li>
               <li>
@@ -40,16 +47,21 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-4">For Employers</h3>
+            <h3 className="font-semibold text-foreground mb-4">Resources</h3>
             <ul className="space-y-2">
-              <li>
-                <Link to="/register" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  Post a Job
-                </Link>
-              </li>
               <li>
                 <Link to="/pricing" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Pricing
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Help Center
+                </Link>
+              </li>
+              <li>
+                <Link to="/settings" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Settings
                 </Link>
               </li>
             </ul>
@@ -74,8 +86,21 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} CareerQuest. All rights reserved.</p>
+        <div className="mt-8 pt-8 border-t border-border">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} CareerQuest. All rights reserved.</p>
+            <div className="flex gap-4">
+              <Link to="/terms" className="hover:text-primary transition-colors">
+                Terms of Service
+              </Link>
+              <Link to="/privacy" className="hover:text-primary transition-colors">
+                Privacy Policy
+              </Link>
+              <Link to="/blog" className="hover:text-primary transition-colors">
+                Blog
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

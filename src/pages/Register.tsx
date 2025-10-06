@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Briefcase, UserCircle, Building2 } from "lucide-react";
 import { toast } from "sonner";
+import { authStore } from "@/stores/authStore";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -20,9 +21,8 @@ export default function Register() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock registration - in production this would call an API
-    toast.success("Account created successfully!");
-    navigate("/dashboard");
+    toast.success("Account created successfully! Please login with demo credentials.");
+    navigate("/login");
   };
 
   return (

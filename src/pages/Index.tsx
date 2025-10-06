@@ -168,6 +168,11 @@ const Index = () => {
                   <Link to="/jobs">Explore Jobs</Link>
                 </Button>
               </div>
+              <div className="pt-4">
+                <Link to="/testimonials" className="text-sm underline hover:no-underline opacity-90">
+                  Read success stories from our users
+                </Link>
+              </div>
             </div>
           </div>
         </section>

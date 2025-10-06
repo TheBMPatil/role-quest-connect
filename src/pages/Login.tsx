@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase } from "lucide-react";
 import { toast } from "sonner";
+import { authStore } from "@/stores/authStore";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,9 +15,21 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock login - in production this would call an API
-    toast.success("Login successful!");
-    navigate("/dashboard");
+    
+    if (authStore.login(email, password)) {
+      const auth = authStore.getAuth();
+      toast.success(`Login successful! Welcome ${auth.user?.name}`);
+      
+      if (auth.user?.role === 'student') {
+        navigate("/student-dashboard");
+      } else if (auth.user?.role === 'recruiter') {
+        navigate("/recruiter-dashboard");
+      } else if (auth.user?.role === 'admin') {
+        navigate("/admin-dashboard");
+      }
+    } else {
+      toast.error("Invalid credentials. Check CREDENTIALS.md for demo accounts.");
+    }
   };
 
   return (
@@ -66,11 +79,21 @@ export default function Login() {
               Sign In
             </Button>
           </form>
-          <div className="mt-6 text-center text-sm">
-            <span className="text-muted-foreground">Don't have an account? </span>
-            <Link to="/register" className="text-primary font-medium hover:underline">
-              Sign up
-            </Link>
+          <div className="mt-6 space-y-4">
+            <div className="text-center text-sm">
+              <span className="text-muted-foreground">Don't have an account? </span>
+              <Link to="/register" className="text-primary font-medium hover:underline">
+                Sign up
+              </Link>
+            </div>
+            <div className="p-4 bg-muted/30 rounded-lg text-xs space-y-2">
+              <p className="font-semibold text-center">Demo Credentials:</p>
+              <div className="space-y-1 text-muted-foreground">
+                <p><strong>Student:</strong> student@careerquest.com / student123</p>
+                <p><strong>Recruiter:</strong> recruiter@careerquest.com / recruiter123</p>
+                <p><strong>Admin:</strong> admin@careerquest.com / admin123</p>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
